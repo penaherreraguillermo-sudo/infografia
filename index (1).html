@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infografía Gastronómica Profesional | Cocina de Precisión</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: linear-gradient(135deg, #1a0a00 0%, #2d1100 40%, #1a0500 100%);
+      min-height: 100vh;
+      color: #fff8ee;
+    }
+
+    .steam-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .steam-particle {
+      position: absolute;
+      bottom: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,200,100,0.06) 0%, transparent 70%);
+      animation: steamRise linear infinite;
+    }
+
+    @keyframes steamRise {
+      0%   { transform: translateY(0) scale(1); opacity: 0; }
+      10%  { opacity: 1; }
+      80%  { opacity: 0.4; }
+      100% { transform: translateY(-110vh) scale(2.5) translateX(var(--drift)); opacity: 0; }
+    }
+
+    .grid-lines {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(255,160,50,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,160,50,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      animation: fadeDown 0.8s ease both;
+    }
+    .header-tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #e8a040;
+      border: 1px solid rgba(232,160,64,0.4);
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff8ee;
+      margin: 0 0 10px;
+      line-height: 1.25;
+    }
+    .header p {
+      font-size: 13px;
+      color: rgba(255,220,160,0.65);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.6rem;
+    }
+    .divider span { flex: 1; height: 1px; background: rgba(232,160,64,0.25); }
+    .divider i { color: #e8a040; font-size: 15px; }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #e8a040;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(232,160,64,0.18);
+      border-radius: 14px;
+      padding: 1.2rem 1.3rem;
+      margin-bottom: 1rem;
+      backdrop-filter: blur(4px);
+      transition: border-color 0.3s, transform 0.3s;
+      animation: fadeUp 0.7s ease both;
+    }
+    .card:hover { border-color: rgba(232,160,64,0.5); transform: translateY(-2px); }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #e8a040;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .card-title i { font-size: 16px; }
+
+    .card-body {
+      font-size: 13px;
+      color: rgba(255,230,180,0.75);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── BIG STAT ── */
+    .big-stat {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.4rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 4px;
+      position: relative;
+      display: inline-block;
+    }
+    .big-stat::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: #e8a040;
+      animation: expandLine 1.2s 0.6s ease forwards;
+    }
+    @keyframes expandLine { to { width: 100%; } }
+
+    .stat-note {
+      font-size: 11px;
+      color: rgba(255,180,80,0.6);
+      font-weight: 300;
+      margin-top: 8px;
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    /* ── FORMULA ── */
+    .formula-box {
+      background: rgba(255,200,80,0.07);
+      border: 1px dashed rgba(232,160,64,0.35);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .formula {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: #f0c060;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── TEMP ZONE ── */
+    .temp-zone {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(220,50,30,0.1);
+      border: 1px solid rgba(220,80,40,0.3);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 10px;
+    }
+    .temp-range {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #ff8866;
+      font-weight: 700;
+    }
+    .temp-label { font-size: 11px; color: rgba(255,180,130,0.7); font-weight: 300; margin-top: 2px; }
+
+    /* ── THERMOMETER ── */
+    .thermometer-wrap { display: flex; align-items: center; gap: 8px; }
+    .thermo-bar {
+      width: 22px; height: 90px;
+      border-radius: 11px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(232,100,40,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .thermo-fill {
+      width: 100%;
+      height: 0;
+      background: linear-gradient(to top, #ff4422, #ff8844, #ffcc44);
+      border-radius: 10px;
+      animation: thermFill 2s 0.4s ease forwards;
+    }
+    @keyframes thermFill { to { height: 100%; } }
+    .thermo-labels {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 90px;
+      padding: 4px 0;
+      font-size: 11px;
+      color: rgba(255,180,100,0.7);
+    }
+    .thermo-labels .danger { color: rgba(255,100,60,0.9); font-weight: 700; }
+
+    /* ── PEPS STEPS ── */
+    .peps-steps { display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
+    .peps-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid #e8a040;
+      font-size: 12px;
+      color: rgba(255,220,160,0.8);
+      animation: slideIn 0.5s ease both;
+    }
+    .peps-step i { color: #e8a040; font-size: 15px; flex-shrink: 0; }
+    .peps-step:nth-child(1) { animation-delay: 0.3s; }
+    .peps-step:nth-child(2) { animation-delay: 0.5s; }
+    .peps-step:nth-child(3) { animation-delay: 0.7s; }
+
+    /* ── SOUS-VIDE GRID ── */
+    .sous-vide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .sv-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(100,200,180,0.2);
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+      animation: fadeUp 0.8s ease both;
+    }
+    .sv-item:hover { border-color: rgba(100,200,180,0.5); transform: translateY(-3px); }
+    .sv-item:nth-child(1) { animation-delay: 0.2s; }
+    .sv-item:nth-child(2) { animation-delay: 0.35s; }
+    .sv-item:nth-child(3) { animation-delay: 0.5s; }
+    .sv-temp {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: #60d0b0;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .sv-name { font-size: 11px; font-weight: 700; color: rgba(200,255,230,0.8); margin: 5px 0 2px; letter-spacing: 0.5px; }
+    .sv-desc { font-size: 10px; color: rgba(150,220,180,0.5); font-weight: 300; }
+    .sv-time { margin-top: 6px; font-size: 12px; color: #60d0b0; font-weight: 700; }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-amber { background: rgba(232,160,64,0.15); color: #e8a040; border: 1px solid rgba(232,160,64,0.3); }
+    .badge-teal  { background: rgba(60,190,160,0.12); color: #50d0b0; border: 1px solid rgba(60,190,160,0.25); }
+    .badge-red   { background: rgba(220,60,40,0.12);  color: #ff7755; border: 1px solid rgba(220,60,40,0.25); }
+
+    /* ── PULSE DOT ── */
+    .pulse-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #e8a040;
+      animation: pulse 2s ease-in-out infinite;
+      margin-right: 4px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(1.5); }
+    }
+
+    /* ── FOOTER ── */
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,200,120,0.3);
+      margin-top: 2rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.22s; }
+    .card:nth-child(3) { animation-delay: 0.34s; }
+    .card:nth-child(4) { animation-delay: 0.46s; }
+
+    @media (max-width: 480px) {
+      .header h1 { font-size: 1.5rem; }
+      .big-stat { font-size: 2.6rem; }
+      .sous-vide-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="steam-bg" id="steam-bg"></div>
+  <div class="grid-lines"></div>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-tag">Cocina de Precisión</div>
+      <h1>Pilares de la Gestión<br>Gastronómica Profesional</h1>
+      <p>Equilibrio esencial entre rentabilidad administrativa,<br>precisión técnica y seguridad alimentaria en la cocina profesional.</p>
+    </header>
+
+    <div class="divider">
+      <span></span>
+      <i class="ti ti-chef-hat" aria-hidden="true"></i>
+      <span></span>
+    </div>
+
+    <!-- SECCIÓN 1: GESTIÓN Y RENTABILIDAD -->
+    <p class="section-label"><i class="ti ti-trending-up" aria-hidden="true"></i> &nbsp;Gestión y Rentabilidad</p>
+
+    <div class="card">
+      <div class="card-title">
+        <i class="ti ti-percentage" aria-hidden="true"></i>
+        Food Cost Objetivo
+        <span class="badge badge-amber">Base</span>
+      </div>
+      <div class="big-stat">30<span style="font-size:1.7rem">%</span></div>
+      <p class="stat-note">
+        Base fundamental para el cálculo del precio de venta sugerido y la rentabilidad.
+        Restaurantes de lujo pueden operar al 25%; pizzerías o fast food entre 18–22%
+        debido a la naturaleza de sus insumos.
+      </p>
+      <div class="formula-box">
+        <div class="formula">Precio Venta = Costo Insumo ÷ 0.30</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <i class="ti ti-ruler-measure" aria-hidden="true"></i>
+        Estandarización mediante Factor de Conversión
+      </div>
+      <p class="card-body">
+        Análisis de mermas post-limpieza en carnes y vegetales para optimizar materias primas
+        y calcular el rendimiento real del producto pagado frente al servido.
+      </p>
+    </div>
+
+    <div class="divider" style="margin-top:1.8rem">
+      <span></span>
+      <i class="ti ti-shield-check" aria-hidden="true"></i>
+      <span></span>
+    </div>
+
+    <!-- SECCIÓN 2: PRECISIÓN TÉCNICA Y APPCC -->
+    <p class="section-label"><i class="ti ti-temperature" aria-hidden="true"></i> &nbsp;Precisión Técnica y APPCC</p>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="pulse-dot"></span>
+        Control Zona de Peligro
+        <span class="badge badge-red">Crítico</span>
+      </div>
+      <p class="card-body" style="margin-bottom:10px">
+        Mantener los alimentos fuera del rango crítico de temperatura en todo momento para evitar la multiplicación bacteriana.
+      </p>
+      <div class="temp-zone">
+        <div class="thermometer-wrap">
+          <div class="thermo-bar">
+            <div class="thermo-fill"></div>
+          </div>
+          <div class="thermo-labels">
+            <div>65°C</div>
+            <div class="danger">⚠ PELIGRO</div>
+            <div>5°C</div>
+          </div>
+        </div>
+        <div>
+          <div class="temp-range">5°C — 65°C</div>
+          <div class="temp-label">Zona de multiplicación bacteriana activa</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <i class="ti ti-arrows-sort" aria-hidden="true"></i>
+        Sistema PEPS
+        <span class="badge badge-teal">FIFO</span>
+      </div>
+      <p class="card-body" style="margin-bottom:10px">
+        Primeras Entradas, Primeras Salidas — rotación obligatoria de inventarios en
+        cámaras frigoríficas y bodegas para garantizar frescura y evitar mermas por caducidad.
+      </p>
+      <div class="peps-steps">
+        <div class="peps-step">
+          <i class="ti ti-package-import" aria-hidden="true"></i>
+          Ingreso registrado con fecha de recepción
+        </div>
+        <div class="peps-step">
+          <i class="ti ti-sort-ascending" aria-hidden="true"></i>
+          Productos más antiguos ubicados al frente
+        </div>
+        <div class="peps-step">
+          <i class="ti ti-package-export" aria-hidden="true"></i>
+          Uso en orden cronológico de llegada
+        </div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin-top:1.8rem">
+      <span></span>
+      <i class="ti ti-clock" aria-hidden="true"></i>
+      <span></span>
+    </div>
+
+    <!-- SECCIÓN 3: SOUS-VIDE -->
+    <p class="section-label"><i class="ti ti-droplet" aria-hidden="true"></i> &nbsp;Referencia Técnica — Tiempos y Temperaturas Sous-Vide</p>
+
+    <div class="card">
+      <div class="card-title">
+        <i class="ti ti-vacuum-cleaner" aria-hidden="true"></i>
+        Cocción al Vacío de Precisión
+      </div>
+      <div class="sous-vide-grid">
+        <div class="sv-item">
+          <div class="sv-temp">54°C</div>
+          <div class="sv-name">Vacuno</div>
+          <div class="sv-desc">término medio</div>
+          <div class="sv-time">1.5 h</div>
+        </div>
+        <div class="sv-item">
+          <div class="sv-temp">48°C</div>
+          <div class="sv-name">Pescado</div>
+          <div class="sv-desc">blanco</div>
+          <div class="sv-time">30 min</div>
+        </div>
+        <div class="sv-item">
+          <div class="sv-temp">63°C</div>
+          <div class="sv-name">Huevo</div>
+          <div class="sv-desc">baja temperatura</div>
+          <div class="sv-time">45 min</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">Gestión Operativa Profesional &middot; Cocina de Precisión</div>
+
+  </div>
+
+  <script>
+    const bg = document.getElementById('steam-bg');
+    for (let i = 0; i < 18; i++) {
+      const el = document.createElement('div');
+      el.className = 'steam-particle';
+      const size = 80 + Math.random() * 220;
+      el.style.cssText = [
+        `width:${size}px`,
+        `height:${size}px`,
+        `left:${Math.random() * 100}%`,
+        `animation-duration:${9 + Math.random() * 13}s`,
+        `animation-delay:${Math.random() * 9}s`,
+        `--drift:${(Math.random() - 0.5) * 130}px`
+      ].join(';');
+      bg.appendChild(el);
+    }
+  </script>
+
+</body>
+</html>
