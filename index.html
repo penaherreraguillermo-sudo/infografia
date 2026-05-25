@@ -3,30 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Infografía Gastronómica Profesional</title>
-    <!-- Tailwind CSS CDN + Font Awesome (por si acaso) y Google Fonts -->
+    <title>Infografía Gastronómica Profesional | Cocina de Precisión</title>
+    <!-- Tailwind CSS CDN + Font Awesome -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons no funciona directamente en HTML plano, usaremos Font Awesome y emojis alternativos, pero también incluimos un CDN de iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Ajustamos Tailwind para que no sobreescriba animaciones -->
     <style>
+        /* === ANIMACIONES Y MEJORAS === */
+        
+        /* Fondo temático de cocina profesional (textura de acero inoxidable + ingredientes sutiles) */
+        body {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.04"><path d="M70 50 L90 50 L90 70 L70 70 Z M110 50 L130 50 L130 70 L110 70 Z M90 80 L110 80 L110 100 L90 100 Z" fill="%23444"/><circle cx="50" cy="130" r="8"/><circle cx="150" cy="130" r="8"/><path d="M30 160 L170 160" stroke="%23444" stroke-width="2"/><path d="M20 180 L180 180" stroke="%23999" stroke-width="1"/><rect x="80" y="10" width="40" height="8" rx="4" fill="%23666"/></svg>');
+            background-repeat: repeat;
+            position: relative;
+        }
+        
+        /* Overlay degradado sutil sobre el fondo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(30,58,95,0.03) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .min-h-screen {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Animación fade in mejorada */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
         .animate-fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
+            animation: fadeIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
         }
+        
+        /* Efecto de elevación en tarjetas */
         .card-hover {
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
+        
         .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -12px rgba(0,0,0,0.15);
             border-color: #1e3a5f !important;
         }
+        
+        /* Animación de latido para iconos al hacer hover */
+        @keyframes softPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        
+        .group:hover i.fa-balance-scale,
+        .group:hover i.fa-calculator {
+            animation: softPulse 0.4s ease-in-out;
+        }
+        
+        /* Animación de brillo en botones de temperatura */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .temp-glow:hover {
+            background: linear-gradient(90deg, #fff, #ffe6cc, #fff);
+            background-size: 200% 100%;
+            animation: shimmer 1.2s infinite;
+        }
+        
+        /* Efecto de entrada escalonada para las tarjetas sous-vide */
+        .sous-card {
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .sous-card:nth-child(1) { animation-delay: 0.1s; }
+        .sous-card:nth-child(2) { animation-delay: 0.2s; }
+        .sous-card:nth-child(3) { animation-delay: 0.3s; }
+        
+        /* Contador animado para el 30% */
+        .counter {
+            display: inline-block;
+            animation: countUp 0.8s ease-out forwards;
+        }
+        
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Transición suave al cambiar de pestaña */
+        .tab-panel {
+            transition: opacity 0.2s ease;
+        }
+        
+        /* Botones de navegación con efecto */
+        .tab-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+        
+        .tab-btn:hover::after {
+            width: 100%;
+        }
+        
+        /* Círculos de temperatura con animación de latido leve */
+        .temp-circle {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .temp-circle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
+        }
+        
+        /* Estilos base */
         .bg-navy { background-color: #1e3a5f; }
         .text-navy { color: #1e3a5f; }
         .border-navy { border-color: #1e3a5f; }
         .bg-teal-deep { background-color: #0f5b63; }
+        
         .circle-inner {
             position: absolute;
             inset: 4px;
@@ -38,8 +171,15 @@
             justify-content: center;
             box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
         }
-        .hover-tip {
-            transition: opacity 0.2s;
+        
+        /* Animación de flotación sutil para el header */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        header h1 {
+            animation: float 4s ease-in-out infinite;
         }
     </style>
 </head>
@@ -70,20 +210,22 @@
             </div>
 
             <!-- Contenido principal -->
-            <div class="lg:col-span-9 bg-white rounded-3xl p-6 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+            <div class="lg:col-span-9 bg-white/90 backdrop-blur-[1px] rounded-3xl p-6 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100">
                 <!-- Panel Gestión -->
                 <div id="panelGestion" class="tab-panel animate-fade-in">
                     <div class="inline-block bg-[#1e3a5f] text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-wider mb-8">
                         GESTIÓN OPERATIVA
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Food Cost Card con hover tooltip -->
+                        <!-- Food Cost Card con hover tooltip y contador animado -->
                         <div id="foodCostCard" class="group relative bg-[#f8fafc] rounded-2xl p-8 border-2 border-transparent card-hover cursor-pointer">
                             <div class="absolute top-4 right-4 text-[#1e3a5f] opacity-20 group-hover:opacity-100 transition-opacity">
                                 <i class="fas fa-balance-scale text-6xl"></i>
                             </div>
                             <h3 class="text-xl font-bold text-slate-800 mb-2">Food Cost Objetivo</h3>
-                            <div class="text-6xl font-black text-[#1e3a5f] mb-4 tracking-tighter">30%</div>
+                            <div class="text-6xl font-black text-[#1e3a5f] mb-4 tracking-tighter">
+                                <span class="counter" id="foodCostValue">30%</span>
+                            </div>
                             <p class="text-sm text-slate-600 leading-relaxed relative z-10">
                                 Base fundamental para el cálculo del precio de venta sugerido y la rentabilidad.
                             </p>
@@ -93,9 +235,9 @@
                             </div>
                         </div>
 
-                        <!-- Estandarización Card -->
+                        <!-- Estandarización Card con animación de icono -->
                         <div class="group bg-[#f8fafc] rounded-2xl p-8 border-2 border-transparent card-hover">
-                            <div class="w-12 h-12 bg-[#1e3a5f] text-white rounded-xl flex items-center justify-center mb-6 shadow-md">
+                            <div class="w-12 h-12 bg-[#1e3a5f] text-white rounded-xl flex items-center justify-center mb-6 shadow-md transition-transform group-hover:scale-110 duration-300">
                                 <i class="fas fa-calculator text-xl"></i>
                             </div>
                             <h3 class="text-xl font-bold text-slate-800 mb-2">Estandarización</h3>
@@ -114,23 +256,23 @@
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-                        <!-- Zona de Peligro -->
-                        <div class="bg-orange-50 rounded-2xl p-6 border border-orange-100 flex items-start gap-4">
-                            <div class="bg-white p-3 rounded-full shadow-sm text-orange-500 shrink-0">
+                        <!-- Zona de Peligro con efecto de temperatura -->
+                        <div class="bg-orange-50 rounded-2xl p-6 border border-orange-100 flex items-start gap-4 transition-all hover:shadow-md hover:-translate-y-1 duration-300">
+                            <div class="bg-white p-3 rounded-full shadow-sm text-orange-500 shrink-0 transition-transform group-hover:scale-110">
                                 <i class="fas fa-exclamation-triangle text-2xl"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg text-slate-800 mb-1">Control Zona de Peligro</h3>
                                 <p class="text-sm text-slate-600 mb-2">Mantener los alimentos fuera del rango crítico.</p>
-                                <div class="flex items-center gap-2 text-xl font-black text-orange-600 bg-white inline-flex px-3 py-1 rounded-lg shadow-sm border border-orange-100">
+                                <div class="flex items-center gap-2 text-xl font-black text-orange-600 bg-white inline-flex px-3 py-1 rounded-lg shadow-sm border border-orange-100 temp-glow">
                                     <i class="fas fa-thermometer-half"></i>
                                     5°C <span class="text-slate-300 font-normal mx-1">—</span> 65°C
                                 </div>
                             </div>
                         </div>
 
-                        <!-- PEPS -->
-                        <div class="bg-teal-50 rounded-2xl p-6 border border-teal-100 flex items-start gap-4">
+                        <!-- PEPS con animación -->
+                        <div class="bg-teal-50 rounded-2xl p-6 border border-teal-100 flex items-start gap-4 transition-all hover:shadow-md hover:-translate-y-1 duration-300">
                             <div class="bg-white p-3 rounded-full shadow-sm text-teal-600 shrink-0">
                                 <i class="fas fa-boxes text-2xl"></i>
                             </div>
@@ -144,15 +286,15 @@
                         </div>
                     </div>
 
-                    <!-- Sous-Vide Section -->
+                    <!-- Sous-Vide Section con animación escalonada -->
                     <div class="border-t border-slate-100 pt-8 mt-8">
                         <h3 class="text-lg font-bold text-slate-800 mb-6 text-center lg:text-left">
                             Referencia Técnica: Tiempos y Temperaturas Sous-Vide
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <!-- Vacuno -->
-                            <div class="flex flex-col items-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                                <div class="relative w-24 h-24 rounded-full border-4 border-red-500 bg-red-50 flex items-center justify-center mb-4">
+                            <div class="sous-card flex flex-col items-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+                                <div class="relative w-24 h-24 rounded-full border-4 border-red-500 bg-red-50 flex items-center justify-center mb-4 temp-circle">
                                     <div class="circle-inner">
                                         <span class="font-black text-lg text-slate-800">54°C</span>
                                     </div>
@@ -167,8 +309,8 @@
                                 </div>
                             </div>
                             <!-- Pescado Blanco -->
-                            <div class="flex flex-col items-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                                <div class="relative w-24 h-24 rounded-full border-4 border-teal-500 bg-teal-50 flex items-center justify-center mb-4">
+                            <div class="sous-card flex flex-col items-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+                                <div class="relative w-24 h-24 rounded-full border-4 border-teal-500 bg-teal-50 flex items-center justify-center mb-4 temp-circle">
                                     <div class="circle-inner">
                                         <span class="font-black text-lg text-slate-800">48°C</span>
                                     </div>
@@ -183,8 +325,8 @@
                                 </div>
                             </div>
                             <!-- Huevo -->
-                            <div class="flex flex-col items-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                                <div class="relative w-24 h-24 rounded-full border-4 border-orange-400 bg-orange-50 flex items-center justify-center mb-4">
+                            <div class="sous-card flex flex-col items-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+                                <div class="relative w-24 h-24 rounded-full border-4 border-orange-400 bg-orange-50 flex items-center justify-center mb-4 temp-circle">
                                     <div class="circle-inner">
                                         <span class="font-black text-lg text-slate-800">63°C</span>
                                     </div>
@@ -205,7 +347,7 @@
         </div>
     </div>
 
-    <!-- Script para tabs y tooltip hover -->
+    <!-- Script para tabs, tooltip hover y animaciones extra -->
     <script>
         (function() {
             const btnGestion = document.getElementById('btnGestion');
@@ -215,7 +357,7 @@
             const foodCostCard = document.getElementById('foodCostCard');
             const tooltip = document.getElementById('tooltipFoodcost');
 
-            // Función para activar pestañas
+            // Función para activar pestañas con animación extra
             function setActiveTab(tab) {
                 if (tab === 'gestion') {
                     panelGestion.classList.remove('hidden');
@@ -224,7 +366,7 @@
                     btnGestion.classList.add('bg-navy', 'text-white', 'shadow-lg');
                     btnGestion.classList.remove('bg-white', 'text-slate-600');
                     btnSeguridad.classList.add('bg-white', 'text-slate-600');
-                    btnSeguridad.classList.remove('bg-navy', 'text-white', 'shadow-lg');
+                    btnSeguridad.classList.remove('bg-teal-700', 'text-white', 'shadow-lg');
                     // Icono chevron
                     const iconGestion = btnGestion.querySelector('i');
                     if(iconGestion) iconGestion.classList.add('text-white');
@@ -259,6 +401,17 @@
 
             // Inicializar en gestión
             setActiveTab('gestion');
+
+            // Efecto de brillo en los botones de temperatura (opcional)
+            const tempGlows = document.querySelectorAll('.temp-glow');
+            tempGlows.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    el.style.transform = 'scale(1.02)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = 'scale(1)';
+                });
+            });
         })();
     </script>
 </body>
